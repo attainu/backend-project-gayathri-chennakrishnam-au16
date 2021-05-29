@@ -1,8 +1,16 @@
 const Garden = require('./../models/gardenModel');
+const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getAllGardens = async (req, res) => {
   try {
-    const gardens = await Garden.find();
+    const features = new APIFeatures(Garden.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const gardens = await features.query;
+
     res.status(200).json({
       status: 'success',
       results: gardens.length,
