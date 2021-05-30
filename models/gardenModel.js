@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
-const gardenSchema = mongoose.Schema({
+const gardenSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'a garden must have a name'],
@@ -20,6 +21,11 @@ const gardenSchema = mongoose.Schema({
     required: [true, 'a garden must have a cover image'],
   },
   images: [String],
+});
+
+gardenSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
 });
 
 const Garden = mongoose.model('Garden', gardenSchema);
