@@ -1,0 +1,17 @@
+header.header
+  nav.nav.nav--gardens
+    a.nav__el(href='/') About Us
+    a.nav__el(href='/gardens') Gardens
+    //- a.nav__el(href='/gallery') #{tab}
+    form.nav__search
+      button.nav__search-btn
+        svg
+          use(xlink:href='img/icons.svg#icon-search')
+      input.nav__search-input(type='text' placeholder='Search Gardens')
+  .header__logo
+    img(src='imgs/header-logo.jpeg' alt='Tevana logo')
+  nav.nav.nav--user
+    a.nav__el(href='/bookings') My bookings
+    nav.nav.nav--user
+      a.nav__el(href='/login') Log in
+      a.nav__el.nav__el--cta(href='/signup') Sign up

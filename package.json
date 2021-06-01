@@ -1,7 +1,7 @@
 {
   "name": "Tevana",
   "version": "1.0.0",
-  "description": "the plant people",
+  "description": "The Plant People",
   "main": "app.js",
   "scripts": {
     "start": "nodemon server.js",
@@ -10,6 +10,15 @@
   "author": "Divyansh and Gayathri",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.1",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "hpp": "^0.2.3",
+    "html-to-text": "^7.1.1",
+    "mongoose": "^5.12.9",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7",
+    "pug": "^3.0.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
