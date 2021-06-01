@@ -1,11 +1,12 @@
 const express = require('express');
 const gardenController = require('./../controllers/gardenController');
+const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
 router
   .route('/')
-  .get(gardenController.getAllGardens)
+  .get(authController.protect, gardenController.getAllGardens)
   .post(gardenController.addGarden);
 router
   .route('/:id')
