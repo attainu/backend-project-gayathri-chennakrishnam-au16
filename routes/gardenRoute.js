@@ -12,6 +12,10 @@ router
   .route('/:id')
   .get(gardenController.getGarden)
   .patch(gardenController.updateGarden)
-  .delete(gardenController.deleteGarden);
+  .delete(
+    authController.protect,
+    authController.restrictTo('admin'),
+    gardenController.deleteGarden
+  );
 
 module.exports = router;
