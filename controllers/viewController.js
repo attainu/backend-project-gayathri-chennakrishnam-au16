@@ -25,8 +25,23 @@ exports.getGardens = catchAsync(async (req,res,next) => {
 
 
 
-exports.getGarden = (req, res)=>{
-  res.status(200).render('garden',{
-    title: 'The Veggies Garden'
+// exports.getGarden = catchAsync(async(req, res,next)=>{
+
+//   //get the specific garden from collection
+//   const garden = await (await Garden.findOne({slug: req.params.slug})).populate({
+//     fields:'review rating user'
+//   });
+
+//   //build and render template using that collection data
+
+//   res.status(200).render('garden',{
+//     title: 'The Veggies Garden',
+//     getGarden
+//   });
+// });
+
+exports.getLoginForm = (req, res) => {
+  res.status(200).render('login', {
+    title: 'Log into your account'
   });
 };

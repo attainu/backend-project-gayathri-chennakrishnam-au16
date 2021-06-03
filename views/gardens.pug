@@ -15,20 +15,20 @@ block content
                         h4(class='card__sub-heading')= `${garden.subHeading}`
                         p(class='card__text')= garden.summary
                         div(class='card__data')
-                            svg(class='card__icon')
-                                use(xlink:href='img/icons/.svg#icon-map-pin')
+                            //- svg(class='card__icon')
+                            //-     use(xlink:href='img/icons/.svg#icon-map-pin')
                             span= garden.location
                         div(class='card__data')
-                            svg(class='card__icon')
-                                use(xlink:href='img/icons.svg#icon-calendar')
+                            //- svg(class='card__icon')
+                            //-     use(xlink:href='img/icons.svg#icon-calendar')
                             span= garden.availability
                         div(class='card__data')
-                            svg(class='card__icon')
-                                use(xlink:href='img/icons.svg#icon-flag')
+                            //- svg(class='card__icon')
+                            //-     use(xlink:href='img/icons.svg#icon-flag')
                             span= garden.nature
                         div(class='card__data')
-                            svg(class='card__icon')
-                                use(xlink:href='img/icons.svg#icon-user')
+                            //- svg(class='card__icon')
+                            //-     use(xlink:href='img/icons.svg#icon-user')
                             span= garden.potsIncluded
                     div(class='card__footer')
                         p
@@ -38,4 +38,4 @@ block content
                         p(class='card__ratings')
                             span(class='card__footer-value')= `${garden.ratingAverage}`
                             span(class='card__footer-text')= `-rating (${garden.ratingQuantity})`
-                        a.btn.btn--green.btn--small(href=`/gardens/${garden.slug}`) Details
+                        a.btn.btn--green.btn--small(href=`/gardens/${garden.slug}`) BUY
