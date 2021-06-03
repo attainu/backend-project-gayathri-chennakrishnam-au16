@@ -33,15 +33,17 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(function(req, res, next) {
-  res.setHeader( 'Content-Security-Policy', "script-src 'self' https://cdnjs.cloudflare.com" );
+app.use(function (req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy',
+    "script-src 'self' https://cdnjs.cloudflare.com"
+  );
   next();
-})
+});
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
-
 
 //limit request
 const limiter = rateLimit({
