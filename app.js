@@ -34,12 +34,7 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-
 app.use(express.json());
-<<<<<<< HEAD
-app.use(express.static(`${__dirname}/public`));
-=======
->>>>>>> 2124a62502dfc1da812ca21f1dd73601f636c6af
 
 //body parser
 app.use(express.json({ limit: '10kb' }));
@@ -51,8 +46,6 @@ app.use(xss());
 app.use(hpp());
 //serving static files
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 // Routes
 app.use('/', viewRouter);
