@@ -26,12 +26,17 @@ app.use(helmet());
 
 app.use(compression());
 
+//body parser
+app.use(express.json({ limit: '10kb' }));
+app.use(cookieParser());
+
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   console.log(req.cookies);
   next();
 });
+
 
 app.use(function (req, res, next) {
   res.setHeader(
@@ -55,9 +60,6 @@ app.use('/api', limiter);
 
 app.use(express.json());
 
-//body parser
-app.use(express.json({ limit: '10kb' }));
-app.use(cookieParser());
 
 app.use(mongoSanitize());
 
@@ -79,3 +81,4 @@ app.all('*', (req, res, next) => {
 app.use(globalErrorHandler);
 
 module.exports = app;
+

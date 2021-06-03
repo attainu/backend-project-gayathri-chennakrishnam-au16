@@ -10,6 +10,8 @@
   "author": "Divyansh and Gayathri",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "chalk": "^4.1.1",
     "compression": "^1.7.4",
