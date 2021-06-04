@@ -1,13 +1,16 @@
 import '@babel/polyfill';
 // import { doc } from 'prettier';
 import { login, logout } from './login';
+
 import { updateSettings } from './updateSettings';
 
 //DOM ELEMENTS
-const loginForm = document.querySelector('.form');
+const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
+
 const userPasswordForm = document.querySelector('.form-user-password');
+
 
 if (loginForm) {
   loginForm.addEventListener('submit', (e) => {
@@ -18,6 +21,7 @@ if (loginForm) {
     login(email, password);
   });
 }
+
 
 if (logOutBtn) logOutBtn.addEventListener('click', logout);
 
@@ -47,3 +51,4 @@ if (userPasswordForm)
     document.getElementById('password').value = '';
     document.getElementById('password-confirm').value = '';
   });
+
