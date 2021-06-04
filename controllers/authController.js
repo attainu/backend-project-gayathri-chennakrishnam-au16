@@ -44,7 +44,11 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+<<<<<<< HEAD
     role: req.body.role,
+=======
+    photo: req.body.photo
+>>>>>>> 49e809933913f832646afbde5a034ef94f7e957c
   });
 
   createSendToken(newUser, 201, res);
@@ -76,6 +80,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
+  } else if(req.cookies.jwt){
+    token = req.cookies.jwt;
   }
 
   if (!token) {
@@ -109,6 +115,33 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = currentUser;
   next();
 });
+
+
+
+//only for rendered pages, hence no errors.
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+  if(req.cookies.jwt){
+    //verify token
+  const decoded = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRET);
+
+  // 3) Check if user still exists
+  const currentUser = await User.findById(decoded.id);
+  if (!currentUser) {
+    return next();
+  }
+
+  // 4) Check if user changed password after the token was issued
+  if (currentUser.changedPasswordAfter(decoded.iat)) {
+    return next();
+  }
+
+  // there is a logged in user,if all above true
+  res.locals.user = currentUser;
+  return next();
+  }
+  next();
+});
+
 
 // eslint-disable-next-line arrow-body-style
 exports.restrictTo = (...roles) => {
@@ -208,3 +241,4 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   // 4) Log user in, send JWT
   createSendToken(user, 200, res);
 });
+

@@ -6,6 +6,8 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const compression = require('compression');
+const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/globalErrorHndler');
@@ -22,6 +24,27 @@ app.set('views', path.join(__dirname, 'views'));
 //set security HTTP
 app.use(helmet());
 
+app.use(compression());
+
+//body parser
+app.use(express.json({ limit: '10kb' }));
+app.use(cookieParser());
+
+// Test middleware
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  console.log(req.cookies);
+  next();
+});
+
+app.use(function (req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy',
+    "script-src 'self' https://cdnjs.cloudflare.com"
+  );
+  next();
+});
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -34,8 +57,7 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-//body parser
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json());
 
 app.use(mongoSanitize());
 
