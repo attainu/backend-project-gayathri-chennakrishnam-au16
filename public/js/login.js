@@ -1,4 +1,5 @@
-const { showAlert } = require('./alerts');
+import axios from 'axios';
+import { showAlert } from './alerts';
 
 const login = async (email, password) => {
   try {
