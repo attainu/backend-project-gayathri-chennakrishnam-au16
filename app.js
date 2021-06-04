@@ -37,7 +37,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use(function (req, res, next) {
   res.setHeader(
     'Content-Security-Policy',
@@ -60,7 +59,6 @@ app.use('/api', limiter);
 
 app.use(express.json());
 
-
 app.use(mongoSanitize());
 
 app.use(xss());
@@ -81,4 +79,3 @@ app.all('*', (req, res, next) => {
 app.use(globalErrorHandler);
 
 module.exports = app;
-
