@@ -1,4 +1,4 @@
-/*eslint-disable*/
+const { showAlert } = require('./alerts');
 
 const login = async (email, password) => {
   try {
@@ -14,13 +14,13 @@ const login = async (email, password) => {
     // console.log(email, password);
 
     if(res.data.status === 'success'){
-        alert('Logged in successfully!');
+        showAlert('success', 'Logged in successfully!');
         window.setTimeout(() => {
             location.assign('/');
         },1500);
     }
   } catch (err) {
-    alert(err.response.data.message);
+    showAlert('error', err.response.data.message);
   }
 };
 
