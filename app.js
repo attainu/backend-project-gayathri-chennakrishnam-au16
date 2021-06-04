@@ -28,7 +28,9 @@ app.use(compression());
 
 //body parser
 app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({extended: true, limit: '10kb'}));
+
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+
 app.use(cookieParser());
 
 // Test middleware
@@ -38,6 +40,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// eslint-disable-next-line prefer-arrow-callback
 app.use(function (req, res, next) {
   res.setHeader(
     'Content-Security-Policy',

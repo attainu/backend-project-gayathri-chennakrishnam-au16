@@ -45,19 +45,19 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     photo: req.body.photo,
-    role: req.body.role
+    role: req.body.role,
   });
 
   createSendToken(newUser, 201, res);
 });
 
 exports.logout = (req, res) => {
-  res.cookie('jwt', 'loggedout',{
-    expires: new Date(Date.now() + 10* 1000),
-    httpOnly: true
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
   });
-  res.status(200).json({status: 'success'});
-}
+  res.status(200).json({ status: 'success' });
+};
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -85,7 +85,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
-  } else if(req.cookies.jwt){
+  } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
 
@@ -122,44 +122,41 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-
-
 //only for rendered pages, hence no errors.
 exports.isLoggedIn = async (req, res, next) => {
-  if(req.cookies.jwt){
-    try{
+  if (req.cookies.jwt) {
+    try {
+      //verify token
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
 
-    //verify token
-  const decoded = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRET);
+      // 3) Check if user still exists
+      const currentUser = await User.findById(decoded.id);
+      if (!currentUser) {
+        return next();
+      }
 
-  // 3) Check if user still exists
-  const currentUser = await User.findById(decoded.id);
-  if (!currentUser) {
-    return next();
-  }
+      // 4) Check if user changed password after the token was issued
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+      }
 
-  // 4) Check if user changed password after the token was issued
-  if (currentUser.changedPasswordAfter(decoded.iat)) {
-    return next();
-  }
-
-  // there is a logged in user,if all above true
-  res.locals.user = currentUser;
-  return next();
-  } catch(err){
-    //basically saying there is no logged in user aka log out current user.
-    return next();
-  }
+      // there is a logged in user,if all above true
+      res.locals.user = currentUser;
+      return next();
+    } catch (err) {
+      //basically saying there is no logged in user aka log out current user.
+      return next();
+    }
   }
   next();
 };
 
-
-
 // eslint-disable-next-line arrow-body-style
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
-    // roles ['admin', 'lead-guide']. role='user'
     if (!roles.includes(req.user.role)) {
       return next(
         new AppError('You do not have permission to perform this action', 403)
@@ -255,4 +252,3 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   // 4) Log user in, send JWT
   createSendToken(user, 200, res);
 });
-
