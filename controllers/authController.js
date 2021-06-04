@@ -44,25 +44,20 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
-<<<<<<< HEAD
+    photo: req.body.photo,
     role: req.body.role,
-    photo: req.body.photo,
-=======
-    photo: req.body.photo,
-    role: req.body.role
->>>>>>> c2b237ff00a509480406eec8e54c7c02ecb5c894
   });
 
   createSendToken(newUser, 201, res);
 });
 
 exports.logout = (req, res) => {
-  res.cookie('jwt', 'loggedout',{
-    expires: new Date(Date.now() + 10* 1000),
-    httpOnly: true
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
   });
-  res.status(200).json({status: 'success'});
-}
+  res.status(200).json({ status: 'success' });
+};
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -128,49 +123,36 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 //only for rendered pages, hence no errors.
-<<<<<<< HEAD
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
-  if (req.cookies.jwt) {
-=======
 exports.isLoggedIn = async (req, res, next) => {
-  if(req.cookies.jwt){
-    try{
+  if (req.cookies.jwt) {
+    try {
+      //verify token
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
 
->>>>>>> c2b237ff00a509480406eec8e54c7c02ecb5c894
-    //verify token
-    const decoded = await promisify(jwt.verify)(
-      req.cookies.jwt,
-      process.env.JWT_SECRET
-    );
+      // 3) Check if user still exists
+      const currentUser = await User.findById(decoded.id);
+      if (!currentUser) {
+        return next();
+      }
 
-    // 3) Check if user still exists
-    const currentUser = await User.findById(decoded.id);
-    if (!currentUser) {
+      // 4) Check if user changed password after the token was issued
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+      }
+
+      // there is a logged in user,if all above true
+      res.locals.user = currentUser;
+      return next();
+    } catch (err) {
+      //basically saying there is no logged in user aka log out current user.
       return next();
     }
-
-    // 4) Check if user changed password after the token was issued
-    if (currentUser.changedPasswordAfter(decoded.iat)) {
-      return next();
-    }
-
-<<<<<<< HEAD
-    // there is a logged in user,if all above true
-    res.locals.user = currentUser;
-    return next();
-=======
-  // there is a logged in user,if all above true
-  res.locals.user = currentUser;
-  return next();
-  } catch(err){
-    //basically saying there is no logged in user aka log out current user.
-    return next();
-  }
->>>>>>> c2b237ff00a509480406eec8e54c7c02ecb5c894
   }
   next();
 };
-
 
 // eslint-disable-next-line arrow-body-style
 exports.restrictTo = (...roles) => {
