@@ -34,6 +34,7 @@ app.listen(port, () => {
 process.on('unhandledRejection', (err) => {
   console.log(err.name, err.message);
   console.log('unhandled rejection, shutting down...');
+  // eslint-disable-next-line no-undef
   server.close(() => {
     process.exit(1);
   });

@@ -37,6 +37,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// eslint-disable-next-line prefer-arrow-callback
 app.use(function (req, res, next) {
   res.setHeader(
     'Content-Security-Policy',
