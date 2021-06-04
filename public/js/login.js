@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { showAlert } from './alerts';
+/*eslint-disable*/
+
 
 const login = async (email, password) => {
   try {
@@ -15,13 +15,13 @@ const login = async (email, password) => {
     // console.log(email, password);
 
     if(res.data.status === 'success'){
-        showAlert('success', 'Logged in successfully!');
+        alert('Logged in successfully!');
         window.setTimeout(() => {
             location.assign('/');
         },1500);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    alert(err.response.data.message);
   }
 };
 
