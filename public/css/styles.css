@@ -115,7 +115,7 @@
     text-transform: uppercase;
     font-weight: 700;
     background-image: -webkit-gradient(linear, left top, right top, from(#7dd56f), to(#28b487));
-    background-image: linear-gradient(to right, #7dd56f, #28b487);
+    background-image: linear-gradient(to right, #1741ab, #2857b4);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -220,11 +220,11 @@
   }
   
   .btn--green {
-    background-color: #55c57a;
+    background-color: #203da8;
     color: #fff;
   }
   .btn--green::after {
-    background-color: #55c57a;
+    background-color: #12419e;
   }
   
   .btn--small {
@@ -256,17 +256,17 @@
   
   .btn-text:link,
   .btn-text:visited {
-    color: #55c57a;
+    color: #223d97;
     display: inline-block;
     text-decoration: none;
-    border-bottom: 1px solid #55c57a;
+    border-bottom: 1px solid #293ca0;
     padding: 3px;
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
   }
   
   .btn-text:hover {
-    background-color: #55c57a;
+    background-color: #201ea8;
     color: #fff;
     -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
@@ -734,7 +734,7 @@
     -ms-flex: 32rem 0 0px;
     flex: 32rem 0 0;
     background-image: -webkit-gradient(linear, left top, right bottom, from(#7dd56f), to(#28b487));
-    background-image: linear-gradient(to right bottom, #7dd56f, #28b487);
+    background-image: linear-gradient(to right bottom, #796c1f, #b2b582);
     padding: 4rem 0;
   }
   .user-view__content {

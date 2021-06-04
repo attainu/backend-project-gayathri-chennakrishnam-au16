@@ -1,4 +1,41 @@
 extends base
 
 block content
-    h1 this is gardens display page for demo.
+    main.main
+        .card-container
+            each garden in gardens
+                .card
+                    div(class='card__header')
+                        div(class='card__picture')
+                            div(class='card__picture-overlay') &nbsp;
+                            img(src=`imgs/gardens/${garden.imageCover}` alt=`${garden.name}` class='card__picture-img')
+                        h3.heading-tertirary
+                            span= garden.name
+                    div(class='card__details')
+                        h4(class='card__sub-heading')= `${garden.subHeading}`
+                        p(class='card__text')= garden.summary
+                        div(class='card__data')
+                            //- svg(class='card__icon')
+                            //-     use(xlink:href='img/icons/.svg#icon-map-pin')
+                            span= garden.location
+                        div(class='card__data')
+                            //- svg(class='card__icon')
+                            //-     use(xlink:href='img/icons.svg#icon-calendar')
+                            span= garden.availability
+                        div(class='card__data')
+                            //- svg(class='card__icon')
+                            //-     use(xlink:href='img/icons.svg#icon-flag')
+                            span= garden.nature
+                        div(class='card__data')
+                            //- svg(class='card__icon')
+                            //-     use(xlink:href='img/icons.svg#icon-user')
+                            span= garden.potsIncluded
+                    div(class='card__footer')
+                        p
+                            span(class='card__footer-value')= `${garden.amount}`
+                            | 
+                            span(class='card__footer-text')= `${garden.package}`
+                        p(class='card__ratings')
+                            span(class='card__footer-value')= `${garden.ratingAverage}`
+                            span(class='card__footer-text')= `-rating (${garden.ratingQuantity})`
+                        a.btn.btn--green.btn--small(href=`/gardens/${garden.slug}`) BUY
