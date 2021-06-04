@@ -1,4 +1,4 @@
-// import { showAlert } from './alerts';
+/* eslint-disable */
 import axios from 'axios';
 import { showAlert } from './alerts';
 
@@ -36,4 +36,5 @@ export const logout = async () => {
     showAlert('error', 'Error logging out! Try again.');
   }
 };
+
 

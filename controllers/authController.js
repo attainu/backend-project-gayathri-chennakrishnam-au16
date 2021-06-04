@@ -123,8 +123,10 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 
 //only for rendered pages, hence no errors.
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
+exports.isLoggedIn = async (req, res, next) => {
   if(req.cookies.jwt){
+    try{
+
     //verify token
   const decoded = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRET);
 
@@ -142,9 +144,14 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
   // there is a logged in user,if all above true
   res.locals.user = currentUser;
   return next();
+  } catch(err){
+    //basically saying there is no logged in user aka log out current user.
+    return next();
+  }
   }
   next();
-});
+};
+
 
 
 // eslint-disable-next-line arrow-body-style
