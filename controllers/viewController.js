@@ -1,5 +1,6 @@
 const Garden = require('../models/gardenModel');
 const catchAsync = require('../utils/catchAync');
+const appError = require('../utils/appError');
 
 
 exports.getOveriew = (req,res) => {
@@ -15,6 +16,9 @@ exports.getGardens = catchAsync(async (req,res,next) => {
   const gardens = await Garden.find();
   //build and render template using allGardens data from step 1
 
+  if(!gardens){
+    return next(new appError('There is no garden with that name.', 404));
+  }
     res.status(200).render('gardens',{
       title: 'Visit our gardens',
       gardens
@@ -45,3 +49,9 @@ exports.getLoginForm = (req, res) => {
     title: 'Log into your account'
   });
 };
+
+exports.getAccount = (req, res) => {
+  res.status(200).render('account', {
+    title: 'Welcome to your account'
+  });
+}

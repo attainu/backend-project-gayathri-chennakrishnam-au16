@@ -44,7 +44,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
-    photo: req.body.photo
+    photo: req.body.photo,
+    role: req.body.role
   });
 
   createSendToken(newUser, 201, res);
@@ -117,6 +118,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
+  res.locals.user = currentUser;
   next();
 });
 
