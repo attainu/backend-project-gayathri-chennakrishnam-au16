@@ -5,14 +5,13 @@ import { signup } from './signup';
 import { updateSettings } from './updateSettings';
 
 //DOM ELEMENTS
-const signupForm = document.querySelector('.form--signup')
+const signupForm = document.querySelector('.form--signup');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 
-
-if(signupForm) {
+if (signupForm) {
   signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -21,9 +20,8 @@ if(signupForm) {
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
 
-    signup(name,email, password, passwordConfirm);
-
-  })
+    signup(name, email, password, passwordConfirm);
+  });
 }
 
 if (loginForm) {
@@ -36,15 +34,18 @@ if (loginForm) {
   });
 }
 
-
 if (logOutBtn) logOutBtn.addEventListener('click', logout);
 
 if (userDataForm)
   userDataForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    updateSettings({ name, email }, 'data');
+    const form = new FormData();
+    form.append('name', document.getElementById('name').value);
+    form.append('email', document.getElementById('email').value);
+    form.append('photo', document.getElementById('photo').files[0]);
+    console.log(form);
+
+    updateSettings(form, 'data');
   });
 
 if (userPasswordForm)
@@ -65,4 +66,3 @@ if (userPasswordForm)
     document.getElementById('password').value = '';
     document.getElementById('password-confirm').value = '';
   });
-
