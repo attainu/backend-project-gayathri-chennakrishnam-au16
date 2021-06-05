@@ -36,7 +36,10 @@ const userSchema = new mongoose.Schema({
       message: 'passwords are not the same',
     },
   },
-  photo: String,
+  photo: {
+    type: String,
+    default: 'user.jpeg'
+  },
 
   passwordChangedAt: Date,
   passwordResetToken: String,
