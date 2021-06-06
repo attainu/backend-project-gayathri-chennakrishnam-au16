@@ -3,6 +3,7 @@ import '@babel/polyfill';
 import { login, logout } from './login';
 import { signup } from './signup';
 import { updateSettings } from './updateSettings';
+import { bookGarden } from './stripe';
 
 //DOM ELEMENTS
 const signupForm = document.querySelector('.form--signup');
@@ -10,6 +11,7 @@ const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
+const bookBtn = document.querySelector('book-garden');
 
 if (signupForm) {
   signupForm.addEventListener('submit', (e) => {
@@ -66,3 +68,11 @@ if (userPasswordForm)
     document.getElementById('password').value = '';
     document.getElementById('password-confirm').value = '';
   });
+
+if(bookBtn)
+  bookBtn.addEventListener('click', e=> {
+    e.target.textContext = 'Processing...';
+    const { gardenId } = e.target.dataset;
+    bookGarden(gardenId);
+  })
+
