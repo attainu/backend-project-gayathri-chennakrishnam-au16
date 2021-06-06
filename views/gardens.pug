@@ -1,5 +1,9 @@
 extends base
 
+block append head
+  script(src='https://js.stripe.com/v3/')
+
+
 block content
     main.main
         .card-container
@@ -32,10 +36,13 @@ block content
                             span= garden.potsIncluded
                     div(class='card__footer')
                         p
-                            span(class='card__footer-value')= `${garden.amount}`
+                            span(class='card__footer-value')= `₹ ${garden.amount}`
                             | 
                             span(class='card__footer-text')= `${garden.package}`
                         p(class='card__ratings')
                             span(class='card__footer-value')= `${garden.ratingAverage}`
                             span(class='card__footer-text')= `-rating (${garden.ratingQuantity})`
-                        a.btn.btn--green.btn--small(href=`/gardens/${garden.slug}`) BUY
+                        if user
+                            button.btn.btn--green.span-all-rows#book-garden(data-garden-id=`${garden.id}`) BUY
+                        else
+                            a.btn.btn--green.span-all-rows(href='/login') :)

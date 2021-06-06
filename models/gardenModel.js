@@ -46,9 +46,9 @@ const gardenSchema = new mongoose.Schema({
     trim: true,
   },
   amount: {
-    required: [true, 'a garden must have price specification'],
-    type: String,
-    trim: true,
+    type: Number,
+    required: [true, 'A garden package must have a price'],
+    default: 100
   },
   package: {
     required: [true, 'a garden must have number of packages specification'],
@@ -62,6 +62,11 @@ const gardenSchema = new mongoose.Schema({
   ratingQuantity:{
     type:Number,
     default:5,
+  },
+  price:{
+    type: Number,
+    required: [true, 'a garden must have a price which is amount*100, since stripe conversions are complex'],
+    default: 10000
   }
 });
 
