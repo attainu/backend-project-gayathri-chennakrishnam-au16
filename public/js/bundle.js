@@ -8674,6 +8674,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var stripe = Stripe('pk_test_51Iz4jeSJZMM3bl9Qllm7TZzswGDn3ZVgzCRxOH7FAU7wUiuM2ugDNmM4p4M0EDvLPpAbopEd0P8X0LjA1dmnI7eD00qrpw7Ytv');
 
+// import {loadStripe} from '@stripe/stripe-js';
 var bookGarden =
 /*#__PURE__*/
 function () {
@@ -8995,7 +8996,7 @@ var loginForm = document.querySelector('.form--login');
 var logOutBtn = document.querySelector('.nav__el--logout');
 var userDataForm = document.querySelector('.form-user-data');
 var userPasswordForm = document.querySelector('.form-user-password');
-var bookBtn = document.querySelector('book-garden');
+var bookBtn = document.getElementById('book-garden');
 
 if (signupForm) {
   signupForm.addEventListener('submit', function (e) {
@@ -9101,7 +9102,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58164" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56150" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

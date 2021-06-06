@@ -15,14 +15,14 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
         payment_method_types: ['card'],
         success_url: `${req.protocol}://${req.get('host')}/`,
         cancel_url: `${req.protocol}://${req.get('host')}/gardens/${garden.slug}`,
-        customer_email:req.user.email,
-        client_reference_id:req.params.gardendId,
+        customer_email: req.user.email,
+        client_reference_id: req.params.gardendId,
         line_items: [
             {
               name: `${garden.name} Garden`,
               description: garden.subHeading,
               images: [`https://blooming-peak-67620.herokuapp.com/imgs/gardens/${garden.imageCover}`],
-              amount: garden.price,
+              amount: garden.amount * 100,
               currency: "INR",
               quantity: 1
             }
